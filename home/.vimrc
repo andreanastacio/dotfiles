@@ -5,6 +5,8 @@ filetype off " required by Vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+Bundle 'gmarik/vundle'
+
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'Raimondi/delimitMate'
