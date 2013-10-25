@@ -10,5 +10,5 @@ $ homesick symlink andreanastacio/dotfiles
 
 ## Thanks to...
 
-[Pedro Franceschi](https://github.com/pedrofranceschi) and his [vimfiles repository](https://github.com/pedrofranceschi/vimfiles)
-[Simon Eskildsen](https://github.com/Sirupsen) and his [dotfiles repository](https://github.com/Sirupsen/dotfiles)
+* [Pedro Franceschi](https://github.com/pedrofranceschi) and his [vimfiles repository](https://github.com/pedrofranceschi/vimfiles)
+* [Simon Eskildsen](https://github.com/Sirupsen) and his [dotfiles repository](https://github.com/Sirupsen/dotfiles)
