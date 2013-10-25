@@ -1,4 +1,4 @@
-source ~/.bash/util.sh
+source ~/.bash/util
 
 PS1="\[$(tput bold)\]\[$(tput setaf 1)\]\w\\[$(tput setaf 4)\] $(__git_ps1 '(%s)') \[$(tput setaf 1)\]\n> \[$(tput sgr0)\]"
 
