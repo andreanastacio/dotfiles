@@ -8,7 +8,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'Raimondi/delimitMate'
 Bundle 'nelstrom/vim-markdown-folding'
 Bundle 'nathanaelkane/vim-indent-guides'
