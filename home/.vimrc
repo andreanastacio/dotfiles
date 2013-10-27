@@ -7,6 +7,7 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
+Bundle 'tpope/vim-rails'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'Raimondi/delimitMate'
 Bundle 'nelstrom/vim-markdown-folding'
