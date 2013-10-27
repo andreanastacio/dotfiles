@@ -1,5 +1,4 @@
 source ~/.bash/util
-source ~/.git_completion.sh
 source ~/.bash/prompt
 
 # RVM
