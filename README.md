@@ -1,5 +1,8 @@
 # André Dotfiles
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/andreanastacio/dotfiles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+
 ## Installing
 
 ```bash
@@ -13,7 +16,3 @@ $ homesick symlink andreanastacio/dotfiles
 * [Pedro Franceschi](https://github.com/pedrofranceschi) and his [vimfiles repository](https://github.com/pedrofranceschi/vimfiles)
 * [Simon Eskildsen](https://github.com/Sirupsen) and his [dotfiles repository](https://github.com/Sirupsen/dotfiles)
 * [Nando Vieira](https://github.com/fnando) and his [bash repository](https://github.com/fnando/bash)
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/andreanastacio/dotfiles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
