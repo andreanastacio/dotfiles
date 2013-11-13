@@ -39,3 +39,4 @@ setuptools-*
 .DS_Store
 log/*.log
 tmp/**/*
+.netrwhist
