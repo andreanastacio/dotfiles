@@ -66,8 +66,10 @@ set nowritebackup
 set directory=$HOME/.vim/tmp//,.
 
 " Global tab width.
-set tabstop=2
+set softtabstop=2
 set shiftwidth=2
+set tabstop=2
+set expandtab
 
 " Edit and load vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
