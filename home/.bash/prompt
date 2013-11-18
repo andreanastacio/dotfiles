@@ -25,7 +25,17 @@ __hellobits_prompt () {
     BRANCH=" $BRANCH"
   fi
 
-  local RUBY_VERSION=`ruby -e "puts RUBY_VERSION"`
+  # from http://ariejan.net/2010/04/25/ruby-version-and-gemset-in-your-bash-prompt-yes-sir
+  function rvm_version {
+    local gemset=$(echo $GEM_HOME | awk -F'@' '{print $2}')
+    [ "$gemset" != "" ] && gemset="@$gemset"
+    local version=$(echo $MY_RUBY_HOME | awk -F'-' '{print $2}')
+    [ "$version" != "" ] && version="$version"
+    local full="$version$gemset"
+    [ "$full" != "" ] && echo "${full}"
+  }
+
+  local RUBY_VERSION="\$(rvm_version)"
 
   if [ -f Gemfile.lock ]; then
     local RAILS_VERSION=`cat Gemfile.lock | grep -E " +rails \([0-9]+" | sed 's/ *rails (\(.*\))/\1/'`
