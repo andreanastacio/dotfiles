@@ -1,3 +1,4 @@
+# from https://github.com/fnando/dotfiles/blob/master/files/.bash/prompt.sh
 __hellobits_prompt () {
   history -a
   history -c

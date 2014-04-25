@@ -1,18 +1,24 @@
 # André Dotfiles
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/andreanastacio/dotfiles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+## Setup.sh installing
 
+* Homebrew
+* MacVIM
+* RVM
+* Command Line Tools for Xcode
+* Tmux
+* Git
+
+and generate the symlinks
 
 ## Installing
 
 ```bash
-$ gem install homesick
-$ homesick clone andreanastacio/dotfiles
-$ homesick symlink andreanastacio/dotfiles
+$ git clone https://github.com/andreanastacio/dotfiles.git
+$ cd folder/to/dotfiles/ && ./setup.sh
 ```
 
 ## Thanks to...
 
-* [Pedro Franceschi](https://github.com/pedrofranceschi) and his [vimfiles repository](https://github.com/pedrofranceschi/vimfiles)
-* [Simon Eskildsen](https://github.com/Sirupsen) and his [dotfiles repository](https://github.com/Sirupsen/dotfiles)
+* [Fabio Rehm](https://github.com/fgrehm) and his [dotfiles repository](https://github.com/fgrehm/dotfiles)
 * [Nando Vieira](https://github.com/fnando) and his [bash repository](https://github.com/fnando/bash)

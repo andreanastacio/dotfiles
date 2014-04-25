@@ -1,8 +1,7 @@
-source ~/.bash/util
-source ~/.bash/prompt
+# Used on "bundle open"
+export EDITOR=vim
+export JRUBY_OPTS="--1.9"
 
 PATH=$PATH:$HOME/local/bin
-
-# RVM
 PATH=$PATH:$HOME/.rvm/bin
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
