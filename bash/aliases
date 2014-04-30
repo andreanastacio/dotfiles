@@ -17,7 +17,4 @@ source ~/.bash/git-aliases
 alias migrate='rake db:migrate && RAILS_ENV=test rake db:migrate'
 alias rollback='rake db:rollback && RAILS_ENV=test rake db:rollback'
 
-function cdp()  { cd ~/projects/$@; }
-function cdpo() { cd ~/projects/oss/$@; }
-
 alias heroku=hk
