@@ -24,3 +24,5 @@ case "$TERM" in
         export RESET=""
     ;;
 esac
+
+export CLICOLOR=1
