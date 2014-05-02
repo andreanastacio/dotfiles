@@ -40,3 +40,5 @@ setuptools-*
 log/*.log
 tmp/**/*
 .netrwhist
+Vagrantfile
+.vagrant
