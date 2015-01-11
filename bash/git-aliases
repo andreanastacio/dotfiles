@@ -36,3 +36,4 @@ __git_shortcut gplr pull '--rebase origin master'
 alias gs='git status'
 alias gl='git lg'
 alias git-extract='git filter-branch --prune-empty --subdirectory-filter $1 master'
+alias glb="git for-each-ref --count=5 --sort=-committerdate refs/heads/ --format='%(color:yellow)%(refname:short)%(color:reset) %0a %(subject)'"
