@@ -14,11 +14,18 @@ else
   echo "Skipping Homebrew installation"
 fi
 
-if ! which rvm >/dev/null; then
-  echo "Installing RVM and Ruby"
-  \curl -sSL https://get.rvm.io | bash -s stable --ruby
+if ! which git >/dev/null; then
+  echo "Installing Git"
+  brew install git
 else
-  echo "Skipping RVM and Ruby installation"
+  echo "Skipping Git installation"
+fi
+
+if ! which rbenv >/dev/null; then
+  echo "Installing Rbenv"
+  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+else
+  echo "Skipping Rbenv"
 fi
 
 if ! which tmux >/dev/null; then
@@ -29,20 +36,13 @@ else
 fi
 
 if ! which vim >/dev/null; then
-  echo "Installing MacVIM"
-  brew install macvim
+  echo "Installing Neovim"
+  brew install --HEAD neovim
 else
-  echo "Skipping MacVIM installation"
+  echo "Skipping Neovim installation"
 fi
 
-if ! which git >/dev/null; then
-  echo "Installing Git"
-  brew install git
-else
-  echo "Skipping Git installation"
-fi
-
-symlinks=( bash gemrc rdebugrc rvmrc )
+symlinks=( zshrc zshenv gemrc rdebugrc tmux.conf )
 
 echo "Creating symlinks..."
 for link in ${symlinks[@]}; do
@@ -55,33 +55,6 @@ for link in ${symlinks[@]}; do
     echo "  SKIP - ${link_name}"
   fi
 done
-
-if ! $(grep -q "source `pwd`/bashrc" $HOME/.bashrc); then
-  echo "Adding source to bashrc"
-  echo "source `pwd`/bashrc" >> $HOME/.bashrc
-else
-  echo "Skipping source for bashrc"
-fi
-
-if ! [ -e $HOME/.bash_profile ]; then
-  touch $HOME/.bash_profile
-fi
-if ! $(grep -q "source `pwd`/bash_profile" $HOME/.bash_profile); then
-  echo "Adding source to bash_profile"
-  echo "source `pwd`/bash_profile" >> $HOME/.bash_profile
-else
-  echo "Skipping source for bash_profile"
-fi
-
-if ! [ -e $HOME/.tmux.conf ]; then
-  touch $HOME/.tmux.conf
-fi
-if ! $(grep -q "source-file `pwd`/tmux.conf" $HOME/.tmux.conf); then
-  echo "Adding source-file to tmux.conf"
-  echo "source-file `pwd`/tmux.conf " >> $HOME/.tmux.conf
-else
-  echo "Skipping source for tmux.conf"
-fi
 
 if ! [[ -L $HOME/.gitconfig ]]; then
   echo "Creating .gitconfig"
