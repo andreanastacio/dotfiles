@@ -7,7 +7,7 @@ else
   echo "Skipping Rbenv"
 fi
 
-symlinks=( zshrc zshenv gemrc rdebugrc tmux.conf )
+symlinks=( zshrc zshenv gemrc rdebugrc tmux.conf bash )
 
 echo "Creating symlinks..."
 for link in ${symlinks[@]}; do

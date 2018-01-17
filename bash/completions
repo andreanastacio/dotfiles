@@ -1,6 +1,2 @@
 source ~/.bash/completion_scripts/rake
 source ~/.bash/completion_scripts/vagrant
-
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-  . `brew --prefix`/etc/bash_completion
-fi

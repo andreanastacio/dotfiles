@@ -1,18 +1,17 @@
 # Path to your oh-my-zsh installation.
 
+autoload bashcompinit
+bashcompinit
+
 source ~/.bash/antigen.zsh
 antigen bundle thewtex/tmux-mem-cpu-load
+antigen apply
 
-export ZSH=/Users/andreluis/.oh-my-zsh
-source ~/.bash/aliases
-source ~/.bash/completions
-source ~/.bash/exports
-source ~/.bash/colors
+export ZSH=~/.oh-my-zsh
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export DISABLE_AUTO_TITLE=true
-
 
 # Setting ag as the default source for fzf
 export FZF_DEFAULT_COMMAND='ag -g ""'
@@ -101,6 +100,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+source ~/.bash/aliases
 source ~/.zshenv
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
