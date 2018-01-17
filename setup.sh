@@ -1,45 +1,10 @@
 #!/usr/bin/env bash
 
-if ! which xcodebuild >/dev/null; then
-  echo "Installing Command Line Tools for Xcode"
-  xcode-select --install
-else
-  echo "Skipping Command Line Tools for Xcode installation"
-fi
-
-if ! which brew >/dev/null; then
-  echo "Installing Homebrew"
-  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-else
-  echo "Skipping Homebrew installation"
-fi
-
-if ! which git >/dev/null; then
-  echo "Installing Git"
-  brew install git
-else
-  echo "Skipping Git installation"
-fi
-
 if ! which rbenv >/dev/null; then
   echo "Installing Rbenv"
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 else
   echo "Skipping Rbenv"
-fi
-
-if ! which tmux >/dev/null; then
-  echo "Installing Tmux"
-  brew install tmux
-else
-  echo "Skipping Tmux installation"
-fi
-
-if ! which vim >/dev/null; then
-  echo "Installing Neovim"
-  brew install --HEAD neovim
-else
-  echo "Skipping Neovim installation"
 fi
 
 symlinks=( zshrc zshenv gemrc rdebugrc tmux.conf )
