@@ -105,3 +105,17 @@ source ~/.bash/aliases
 source ~/.zshenv
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# tabtab source for electron-forge package
+# uninstall by removing these lines or running `tabtab uninstall electron-forge`
+[[ -f /home/andreluis/projects/indeva/integrador-electron/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /home/andreluis/projects/indeva/integrador-electron/node_modules/tabtab/.completions/electron-forge.zsh
+
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/andreluis/.ndenv/versions/v9.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/andreluis/.ndenv/versions/v9.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/andreluis/.ndenv/versions/v9.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/andreluis/.ndenv/versions/v9.5.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
