@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 
-if ! which rbenv >/dev/null; then
-  echo "Installing Rbenv"
-  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-else
-  echo "Skipping Rbenv"
-fi
-
-symlinks=( zshrc zshenv gemrc rdebugrc tmux.conf bash tmux-powerlinerc )
+symlinks=( rdebugrc tmux.conf tmux-powerlinerc )
 
 echo "Creating symlinks..."
 for link in ${symlinks[@]}; do
