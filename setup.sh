@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 
-symlinks=( rdebugrc tmux.conf tmux-powerlinerc )
+if ! which brew >/dev/null; then
+  echo "Installing Homebrew"
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+  echo "Skipping Homebrew installation"
+fi
+
+echo "Installing Homebrew packages..."
+
+brew install zsh ctags git tmux reattach-to-user-namespace the_silver_searcher fzf asdf
+
+symlinks=( zpreztorc zshrc zshenv tmux.conf gitconfig global_gitignore tmux-powerlinerc )
 
 echo "Creating symlinks..."
 for link in ${symlinks[@]}; do

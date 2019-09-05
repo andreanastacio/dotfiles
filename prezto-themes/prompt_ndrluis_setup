@@ -1,0 +1,153 @@
+# Authors:
+#   Vinicius Oliveira <me@vinioliveira.com>
+#   André Luís Anastácio <andreluisanastacio@gmail.com>
+
+pmodload 'helper'
+
+typeset -g prompt_command_timestamp
+typeset -g prompt_command_elapsed
+
+function ruby_version() {
+  (( $+commands[ruby] )) || return 1
+  test -f Gemfile || return 1
+  MM_RUBY_FULL="$(ruby -v 2>/dev/null)"
+  [[ $MM_RUBY_FULL =~ 'ruby ([0-9A-Za-z.]+)p[0-9]+' ]]
+  MM_RUBY_VERSION=$match[1]
+
+  echo " %F{red}%B(%b%F{red}$MM_RUBY_VERSION%B)%b"
+}
+
+function nodejs_version() {
+  (( $+commands[node] )) || return 1
+  test -f package.json || return 1
+  MM_NODE_FULL="$(node -v 2>/dev/null)"
+  [[ $MM_NODE_FULL =~ 'v([0-9A-Za-z.]+)' ]]
+  MM_NODE_VERSION=$match[1]
+  echo " %F{green}%B(%b%F{green}$MM_NODE_VERSION%B)%b"
+}
+
+function prompt_ndrluis_precmd {
+# Replace "/home/<user>" with "~"
+  local pwd="${PWD/#$HOME/~}"
+  if [[ "$pwd" == (#m)[/~] ]]; then
+    _prompt_ndrluis_pwd="$MATCH"
+    unset MATCH
+  else
+    _prompt_ndrluis_pwd="${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}/${pwd:t}"
+  fi
+
+  local elapsed
+
+  prompt_command_elapsed=
+
+  (( elapsed = EPOCHSECONDS - ${prompt_command_timestamp:-$EPOCHSECONDS} ))
+
+  if (( elapsed > 5 )); then
+    prompt_command_elapsed="$(to_human_time $elapsed) "
+  fi
+
+  prompt_command_timestamp=
+
+  function async() {
+    # save to temp file
+    printf "%s" "$(RCMD)" > "${HOME}/.zsh_tmp_prompt"
+    # signal parent
+    kill -s USR1 $$
+  }
+
+  # do not clear RPROMPT, let it persist
+
+  # kill child if necessary
+  if [[ "${ASYNC_PROC}" != 0 ]]; then
+    kill -s HUP $ASYNC_PROC >/dev/null 2>&1 || :
+  fi
+
+  # start background computation
+  async &!
+  ASYNC_PROC=$!
+}
+
+function prompt_async_git {
+  cd -q "$1"
+  if (( $+functions[git-info] )); then
+    git-info
+    print ${git_info[status]}
+  fi
+}
+
+function prompt_ndrluis_async_tasks {
+  # Initialize async worker. This needs to be done here and not in
+  # prompt_ndrluis_setup so the git formatting can be overridden by other prompts.
+  if (( !${prompt_prezto_async_init:-0} )); then
+    async_start_worker prompt_ndrluis -n
+    async_register_callback prompt_ndrluis prompt_ndrluis_async_callback
+    typeset -g prompt_prezto_async_init=1
+  fi
+
+  # Kill the old process of slow commands if it is still running.
+  async_flush_jobs prompt_ndrluis
+
+  # Compute slow commands in the background.
+  async_job prompt_ndrluis prompt_ndrluis_async_git "$PWD"
+}
+
+function prompt_ndrluis_setup {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  prompt_opts=(cr percent sp subst)
+  _prompt_ndrluis_precmd_async_pid=0
+  _prompt_ndrluis_precmd_async_data=$(mktemp "${TMPDIR:-/tmp}/ndrluis-prompt-async-XXXXXXXXXX")
+
+  # Load required functions.
+  autoload -Uz vcs_info
+  autoload -Uz add-zsh-hook
+  autoload -Uz async && async
+
+  # Add hook to call our function before each command
+  add-zsh-hook precmd prompt_ndrluis_precmd
+
+  # Get the async worker set up
+  _ndrluis_cur_git_root=''
+
+  _prompt_ndrluis_git=''
+  _prompt_ndrluis_pwd=''
+
+  # Set git-info parameters.
+  zstyle ':prezto:module:git:info' verbose 'yes'
+  zstyle ':prezto:module:git:info:added' format ' %%B%F{2}✚%f%%b'
+  zstyle ':prezto:module:git:info:ahead' format ' %%B%F{14}⬆%f%%b'
+  zstyle ':prezto:module:git:info:behind' format ' %%B%F{14}⬇%f%%b'
+  zstyle ':prezto:module:git:info:branch' format ' %%B%F{8} %f%%b%b'
+  zstyle ':prezto:module:git:info:deleted' format ' %%B%F{1}✖%f%%b'
+  zstyle ':prezto:module:git:info:modified' format ' %%B%F{blue}✱%f%%b'
+  zstyle ':prezto:module:git:info:position' format ' %%B%F{13}%p%f%%b'
+  zstyle ':prezto:module:git:info:renamed' format ' %%B%F{5}➜%f%%b'
+  zstyle ':prezto:module:git:info:unmerged' format ' %%B%F{3}═%f%%b'
+  zstyle ':prezto:module:git:info:untracked' format ' %%B%F{208}●%f%%b'
+  zstyle ':prezto:module:git:info:keys' format 'status' '%b %p %c:%s%A%B%S%a%d%m%r%U%u'
+
+  # zstyle ':prezto:module:git:info:keys' format 'rprompt' '%b%c%s%D'
+  # zstyle ':prezto:module:git:info:commit' format ' %%B%F{3}%.7c%f%%b'
+  # zstyle ':prezto:module:git:info:action' format '%F{7}:%f%%B%F{9}%s%f%%b'
+
+  # Set ruby-info parameters.
+  zstyle ':prezto:module:ruby:info:version' format '%F{red} %F{red}v%v%f'
+
+  # Set node-info
+  zstyle ':prezto:module:node:info:version' format '%F{green}⬢ %F{green}v%v%f'
+
+  # Set editor-info parameters.
+  zstyle ':prezto:module:editor:info:completing' format '%B%F{red}...%f%b'
+  zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{green}λ%f%b '
+  zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format '%F{yellow}♺%f'
+  zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{red}λ%f%b '
+
+  # Define prompts.
+  RPROMPT='${ruby_info[version]} %f${node_info[version]}'
+  SPROMPT='zsh: correct %F{magenta}%R%f to %F{green}%r%f [nyae]? '
+
+  PROMPT='${editor_info[keymap]} %F{14}${_prompt_ndrluis_pwd}%f${${_prompt_ndrluis_git}}
+%F{208}» %f'
+}
+
+prompt_ndrluis_setup "$@"
