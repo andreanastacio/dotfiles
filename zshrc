@@ -57,7 +57,12 @@ export PATH="/usr/local/opt/gettext/bin:$PATH"
 export FZF_DEFAULT_COMMAND='ag -s -g ""'
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/choronos/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/choronos/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/chronos/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/chronos/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/choronos/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/choronos/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/chronos/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/chronos/google-cloud-sdk/completion.zsh.inc'; fi
+
+export LC_ALL=en_US.UTF-8
+
+# heroku autocomplete setup
+HEROKU_AC_ZSH_SETUP_PATH=/Users/chronos/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
